@@ -204,17 +204,16 @@ public class Agent {
 	//
 
 	public int getNextNode() {
-		int ans = -2;
 		if (this.currentE == null) {
-			ans = -1;
+			return -1;
 		} else {
-			ans = this.currentE.getDest();
+			return this.currentE.getDest();
 		}
-		return ans;
 	}
 
 	public boolean setNextNode(int dest) {
 		boolean ans = false;
+		
 		int src = this.currentV.getKey();
 		this.currentE = _gg.getEdge(src, dest);
 		if (currentE != null) {
