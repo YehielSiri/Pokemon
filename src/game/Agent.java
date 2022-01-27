@@ -85,10 +85,6 @@ public class Agent {
 		return ans;
 	}
 
-	//	public void setCurrNode(int src) {
-	//		this._curr_node = _gg.getNode(src);
-	//	}
-	//
 	public boolean isMoving() {
 		return this.currentE != null;
 	}
