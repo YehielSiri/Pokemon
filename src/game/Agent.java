@@ -48,8 +48,6 @@ public class Agent {
 		this.dest = dest;
 		this.speed = speed;
 		this.pos = pos;
-		//		this._curr_node = _gg.getNode(start_node);
-		//		this._curr_edge = null;
 	}
 
 	/**
@@ -69,22 +67,22 @@ public class Agent {
 		JsonParser parser = new JsonParser();
 
 		JsonArray agentsFromFile;
-//		JsonObject line;
+		//		JsonObject line;
 		try {
 			fileElement = parser.parse(new FileReader(jsonFile));
 			fileObject = fileElement.getAsJsonObject();
-			
+
 			JsonObject agent = fileObject.get("Agent").getAsJsonObject();
-			
+
 			int id = agent.get("id").getAsInt();
 			//Make sure this data belongs to this agent or at least this agent had not constructed.
 			if (id == this.getId() || this.getId() == -1) {
-				
+
 				//If had not constructed, update the id:
 				if (this.getId() == -1) {
 					this.id = id;
 				}
-				
+
 				//Any way update everything else:
 				this.setValue( agent.get("value").getAsDouble() );
 				int src = agent.get("src").getAsInt();
@@ -99,27 +97,15 @@ public class Agent {
 				double z = Double.parseDouble(position[2]);
 
 				GeoLocation pos = new GeoLocation(x, y, z);
-				
+
 				this.setPos(pos);
-				
+
 				this.setCurrNode(src);
 				this.setNextNode(dest);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	public boolean setNextNode(int dest) {
-		boolean ans = false;
-		int src = this.currentV.getKey();
-		this.currentE = _gg.getEdge(src, dest);
-		if (currentE != null) {
-			ans = true;
-		} else {
-			currentE = null;
-		}
-		return ans;
 	}
 
 	public boolean isMoving() {
@@ -165,10 +151,6 @@ public class Agent {
 		return this.currentE;
 	}
 
-	public Node getSrc() {
-		return this.src;
-	}
-
 	private Node getDest() {
 		return this.dest;
 	}
@@ -191,10 +173,6 @@ public class Agent {
 
 	public void setCurrentE(Edge updatedCurrentE) {
 		this.currentE = updatedCurrentE;
-	}
-
-	private void setSrc(Node src) {
-		this.src = new Node(src);
 	}
 
 	private void setDest(Node dest) {
@@ -236,21 +214,35 @@ public class Agent {
 		return ans;
 	}
 
-//	public void set_SDT(long ddtt) {
-//		long ddt = ddtt;
-//		if (this.currentE != null) {
-//			double w = getCurrentE().getWeight();
-//			GeoLocation dest = _gg.getNode(getCurrentE().getDest()).getLocation();
-//			GeoLocation src = _gg.getNode(getCurrentE().getSrc()).getLocation();
-//			double de = src.distance(dest);
-//			double dist = pos.distance(dest);
-//			if (this.get_curr_fruit().getedge() == this.getCurrentE()) {
-//				dist = _curr_fruit.getLocation().distance(this.pos);
-//			}
-//			double norm = dist / de;
-//			double dt = w * norm / this.getSpeed();
-//			ddt = (long) (1000.0 * dt);
-//		}
-//		this.set_sg_dt(ddt);
-//	}
+	public boolean setNextNode(int dest) {
+		boolean ans = false;
+		int src = this.currentV.getKey();
+		this.currentE = _gg.getEdge(src, dest);
+		if (currentE != null) {
+			ans = true;
+		} else {
+			currentE = null;
+		}
+		return ans;
+	}
+
+
+
+	//	public void set_SDT(long ddtt) {
+	//		long ddt = ddtt;
+	//		if (this.currentE != null) {
+	//			double w = getCurrentE().getWeight();
+	//			GeoLocation dest = _gg.getNode(getCurrentE().getDest()).getLocation();
+	//			GeoLocation src = _gg.getNode(getCurrentE().getSrc()).getLocation();
+	//			double de = src.distance(dest);
+	//			double dist = pos.distance(dest);
+	//			if (this.get_curr_fruit().getedge() == this.getCurrentE()) {
+	//				dist = _curr_fruit.getLocation().distance(this.pos);
+	//			}
+	//			double norm = dist / de;
+	//			double dt = w * norm / this.getSpeed();
+	//			ddt = (long) (1000.0 * dt);
+	//		}
+	//		this.set_sg_dt(ddt);
+	//	}
 }
