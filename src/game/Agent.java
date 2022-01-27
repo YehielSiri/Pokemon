@@ -186,23 +186,8 @@ public class Agent {
 		this.pos = new GeoLocation(pos);
 	}
 
-	//	public Pokemon get_curr_fruit() {
-	//		return this._curr_fruit;
-	//	}
-	//
-	//	public void set_curr_fruit(Pokemon curr_fruit) {
-	//		this._curr_fruit = curr_fruit;
-	//	}
-	//
-	//	public long get_sg_dt() {
-	//		return _sg_dt;
-	//	}
-	//
-	//	public void set_sg_dt(long _sg_dt) {
-	//		this._sg_dt = _sg_dt;
-	//	}
-	//
-
+	// Non real fields's getters & setters:
+	
 	/**
 	 * @return - the currentE's dist (the next node in fact) and -1 if currentE = null
 	 */
