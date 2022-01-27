@@ -86,7 +86,7 @@ public class Agent {
 				//Any way update everything else:
 				this.setValue( agent.get("value").getAsDouble() );
 				int src = agent.get("src").getAsInt();
-				this.setSrc(graph.getGraph().getNode(src));
+				this.setCurrentV(graph.getGraph().getNode(src));
 				int dest = agent.get("dest").getAsInt();
 				this.setDest(graph.getGraph().getNode(dest));
 				this.setSpeed( agent.get("speed").getAsDouble() );
@@ -100,7 +100,6 @@ public class Agent {
 
 				this.setPos(pos);
 
-				this.setCurrNode(src);
 				this.setNextNode(dest);
 			}
 		} catch (Exception e) {
@@ -126,7 +125,7 @@ public class Agent {
 		String ans = "{\"Agent\":{"
 				+ "\"id\":" + this.getId() + ","
 				+ "\"value\":" + this.getValue() + ","
-				+ "\"src\":" + this.getSrc().getKey() + ","
+				+ "\"src\":" + this.getCurrentV().getKey() + ","
 				+ "\"dest\":" + this.getDest().getKey() + ","
 				+ "\"speed\":" + this.getSpeed() + ","
 				+ "\"pos\":\"" + this.getPos().toString() + "\""
