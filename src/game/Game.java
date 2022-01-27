@@ -274,4 +274,9 @@ public class Game {
 		GeoSpace1D yRange = new GeoSpace1D(y0,y1);
 		return new GeoSpace2D(xRange, yRange);
 	}
+
+	public void chooseNextEdge(int id, int key) {
+		// TODO Auto-generated method stub
+		
+	}
 }
