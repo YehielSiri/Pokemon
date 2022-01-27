@@ -1,9 +1,15 @@
 package game;
 
+import java.io.File;
+import java.io.FileReader;
+
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import graph.DirectedWeightedGraph;
+import graph.DirectedWeightedGraphAlgorithms;
 import graph.Edge;
 import graph.GeoLocation;
 import graph.Node;
@@ -45,28 +51,58 @@ public class Agent {
 		//		this._curr_edge = null;
 	}
 
-	public boolean update(String json) {
-		JsonObject line;
+	/**
+	 * One from two ways to keep the data updated.
+	 * The usual & cheap way is to update the data online into the client; While the client calculate his
+	 * steps, update graph & Agents & Pokemons status, before answering to server.
+	 * But, maybe to let the server updating the data every step and just taking it from him, is more
+	 * simple. We have to remember that it is given in a json format.
+	 * @param json
+	 * @return
+	 */
+	public boolean update(String json, DirectedWeightedGraphAlgorithms graph) {
+		File jsonFile = new File(json);
+
+		JsonElement fileElement;
+		JsonObject fileObject;
+		JsonParser parser = new JsonParser();
+
+		JsonArray agentsFromFile;
+//		JsonObject line;
 		try {
-			// "GameServer":{"graph":"A0","pokemons":3,"agents":1}}
-			line = new JsonObject(json);
-			JsonObject ttt = line.getJSONObject("Agent");
-			JsonElement id = ttt.get("id");
+			fileElement = parser.parse(new FileReader(jsonFile));
+			fileObject = fileElement.getAsJsonObject();
+			
+			JsonObject agent = fileObject.get("Agent").getAsJsonObject();
+			
+			int id = agent.get("id").getAsInt();
+			//Make sure this data belongs to this agent or at least this agent had not constructed.
 			if (id == this.getId() || this.getId() == -1) {
+				
+				//If had not constructed, update the id:
 				if (this.getId() == -1) {
-					_id = id;
+					this.id = id;
 				}
-				double speed = ttt.getDouble("speed");
-				String p = ttt.getString("pos");
-				GeoLocation pp = new GeoLocation(p);
-				int src = ttt.get("src");
-				int dest = ttt.get("dest");
-				double value = ttt.getDouble("value");
-				this.pos = pp;
+				
+				//Any way update everything else:
+				this.setValue( agent.get("value").getAsDouble() );
+				int src = agent.get("src").getAsInt();
+				this.setSrc(graph.getGraph().getNode(src));
+				int dest = agent.get("dest").getAsInt();
+				this.setDest(graph.getGraph().getNode(dest));
+				this.setSpeed( agent.get("speed").getAsDouble() );
+
+				String[] position = agent.get("pos").getAsString().split(",");
+				double x = Double.parseDouble(position[0]);
+				double y = Double.parseDouble(position[1]);
+				double z = Double.parseDouble(position[2]);
+
+				GeoLocation pos = new GeoLocation(x, y, z);
+				
+				this.setPos(pos);
+				
 				this.setCurrNode(src);
-				this.setSpeed(speed);
 				this.setNextNode(dest);
-				this.setValue(value);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
