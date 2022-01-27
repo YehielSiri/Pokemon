@@ -2,9 +2,22 @@ package ex4_java_client; /**
  * @author AchiyaZigi
  * A trivial example for starting the server and running all needed commands
  */
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import game.Agent;
 import game.Game;
@@ -170,15 +183,11 @@ public class StudentCode implements Runnable{
 
 	@Override
 	public void run() {
-
-
-
 		game.login(id);
-
 
 		String g = game.getGraph();
 		String pks = game.getPokemons();
-		directed_weighted_graph gg = game.getJava_Graph_Not_to_be_used();
+		directedWeightedGraph gg = game.getJava_Graph_Not_to_be_used();
 		init(game);
 
 		game.startGame();
@@ -210,15 +219,14 @@ public class StudentCode implements Runnable{
 
 		gui.setTitle("Ex2 - OOP: The Challenge Pokemon Game");
 		int ind = 0;
-		//  long dt=100;
 
 		long time = game.timeToEnd();
 		while (game.isRunning()) {
 
-			moveAgants(game, arena.getGraph());
+			moveAgants(game, game.getGraph());
 			try {
 				if (ind % 1 == 0) {
-					arena.setTime("Time Left :" + (double)game.timeToEnd()/1000);
+					game.setTimeGame("Time Left :" + (double)game.timeToEnd()/1000);
 					gui.repaint();
 				}
 				Thread.sleep(numOfSleep());
