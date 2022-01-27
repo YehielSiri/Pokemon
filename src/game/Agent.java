@@ -9,11 +9,11 @@ import graph.GeoLocation;
 import graph.Node;
 
 public class Agent {
-//	public static final double EPS = 0.0001;
 //	private static int counter = 0;
-//	private static int seed = 3331;
 	private int id;
 	private double value;
+	private Node currentV;
+	private Edge currentE;
 	private Node src;
 	private Node dest;
 	private double speed;
@@ -52,8 +52,8 @@ public class Agent {
 			line = new JsonObject(json);
 			JsonObject ttt = line.getJSONObject("Agent");
 			JsonElement id = ttt.get("id");
-			if (id == this.getID() || this.getID() == -1) {
-				if (this.getID() == -1) {
+			if (id == this.getId() || this.getId() == -1) {
+				if (this.getId() == -1) {
 					_id = id;
 				}
 				double speed = ttt.getDouble("speed");
