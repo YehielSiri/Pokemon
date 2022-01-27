@@ -100,7 +100,7 @@ public class Agent {
 
 				this.setPos(pos);
 
-				this.setNextNode(dest);
+				this.setNextNode(dest, graph);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -203,6 +203,9 @@ public class Agent {
 	//	}
 	//
 
+	/**
+	 * @return - the currentE's dist (the next node in fact) and -1 if currentE = null
+	 */
 	public int getNextNode() {
 		if (this.currentE == null) {
 			return -1;
@@ -211,17 +214,17 @@ public class Agent {
 		}
 	}
 
-	public boolean setNextNode(int dest) {
-		boolean ans = false;
-		
+	/**
+	 * set the currentE field:
+	 * Edge(src, dist) - when it exists
+	 * null - when it isn't exists
+	 * @param dest
+	 * @param graph
+	 */
+	public void setNextNode(int dest, DirectedWeightedGraphAlgorithms graph) {
 		int src = this.currentV.getKey();
-		this.currentE = _gg.getEdge(src, dest);
-		if (currentE != null) {
-			ans = true;
-		} else {
-			currentE = null;
-		}
-		return ans;
+		this.currentE = graph.getGraph().getEdge(src, dest);
+		//getEdge(src, dest) returns null when the map contains no such mapping for the key
 	}
 
 
