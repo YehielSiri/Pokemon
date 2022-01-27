@@ -57,9 +57,8 @@ public class Agent {
 	 * But, maybe to let the server updating the data every step and just taking it from him, is more
 	 * simple. We have to remember that it is given in a json format.
 	 * @param json
-	 * @return
 	 */
-	public boolean update(String json, DirectedWeightedGraphAlgorithms graph) {
+	public void update(String json, DirectedWeightedGraphAlgorithms graph) {
 		File jsonFile = new File(json);
 
 		JsonElement fileElement;
