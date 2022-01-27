@@ -20,7 +20,6 @@ public class Agent {
 	private double value;
 	private Node currentV;
 	private Edge currentE;
-	private Node src;
 	private Node dest;
 	private double speed;
 	private GeoLocation pos;
@@ -34,7 +33,8 @@ public class Agent {
 	public Agent() {
 		this.id = 0;
 		this.value = 0;
-		this.src = null;
+		this.currentV = null;
+		this.currentE = null;
 		this.dest = null;
 		this.speed = 0;
 		this.pos = null;
@@ -43,7 +43,8 @@ public class Agent {
 	public Agent(int id, double value, Node src, Node dest, double speed, GeoLocation pos) {
 		this.id = id;
 		this.value = value;
-		this.src = src;
+		this.currentV = src;
+		this.currentE = null;
 		this.dest = dest;
 		this.speed = speed;
 		this.pos = pos;
