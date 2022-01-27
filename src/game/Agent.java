@@ -9,7 +9,7 @@ import graph.GeoLocation;
 import graph.Node;
 
 public class Agent {
-//	private static int counter = 0;
+	//	private static int counter = 0;
 	private int id;
 	private double value;
 	private Node currentV;
@@ -18,9 +18,9 @@ public class Agent {
 	private Node dest;
 	private double speed;
 	private GeoLocation pos;
-//	private Pokemon currFruit;
-//	private long _sg_dt;
-//	private String pic;
+	//	private Pokemon currFruit;
+	//	private long _sg_dt;
+	//	private String pic;
 
 	/**
 	 * A defalt constructor
@@ -41,8 +41,8 @@ public class Agent {
 		this.dest = dest;
 		this.speed = speed;
 		this.pos = pos;
-//		this._curr_node = _gg.getNode(start_node);
-//		this._curr_edge = null;
+		//		this._curr_node = _gg.getNode(start_node);
+		//		this._curr_edge = null;
 	}
 
 	public boolean update(String json) {
@@ -75,22 +75,22 @@ public class Agent {
 
 	public boolean setNextNode(int dest) {
 		boolean ans = false;
-		int src = this._curr_node.getKey();
-		this._curr_edge = _gg.getEdge(src, dest);
-		if (_curr_edge != null) {
+		int src = this.currentV.getKey();
+		this.currentE = _gg.getEdge(src, dest);
+		if (currentE != null) {
 			ans = true;
 		} else {
-			_curr_edge = null;
+			currentE = null;
 		}
 		return ans;
 	}
 
-//	public void setCurrNode(int src) {
-//		this._curr_node = _gg.getNode(src);
-//	}
-//
+	//	public void setCurrNode(int src) {
+	//		this._curr_node = _gg.getNode(src);
+	//	}
+	//
 	public boolean isMoving() {
-		return this._curr_edge != null;
+		return this.currentE != null;
 	}
 
 	@Override
@@ -124,6 +124,14 @@ public class Agent {
 		return this.value;
 	}
 
+	public Node getCurrentV() {
+		return this.currentV;
+	}
+
+	public Edge getCurrentE() {
+		return this.currentE;
+	}
+
 	public Node getSrc() {
 		return this.src;
 	}
@@ -144,72 +152,72 @@ public class Agent {
 		this.value = value;
 	}
 
+	public void setCurrentV(Node updatedCurrentV) {
+		this.currentV = updatedCurrentV;
+	}
+
+	public void setCurrentE(Edge updatedCurrentE) {
+		this.currentE = updatedCurrentE;
+	}
+
 	private void setSrc(Node src) {
 		this.src = new Node(src);
 	}
-	
+
 	private void setDest(Node dest) {
 		this.dest = new Node(dest);
 	}
-	
+
 	private void setSpeed(double v) {
 		this.speed = v;
 	}
-	
+
 	private void setPos(GeoLocation pos) {
 		this.pos = new GeoLocation(pos);
 	}
 
-//	public Pokemon get_curr_fruit() {
-//		return this._curr_fruit;
-//	}
-//
-//	public void set_curr_fruit(Pokemon curr_fruit) {
-//		this._curr_fruit = curr_fruit;
-//	}
-//
-//	public Edge get_curr_edge() {
-//		return this._curr_edge;
-//	}
-//
-//	public void set_curr_edge(Edge curr_edge) {
-//		this._curr_edge = curr_edge;
-//	}
-//	
-//	public long get_sg_dt() {
-//		return _sg_dt;
-//	}
-//
-//	public void set_sg_dt(long _sg_dt) {
-//		this._sg_dt = _sg_dt;
-//	}
-//
+	//	public Pokemon get_curr_fruit() {
+	//		return this._curr_fruit;
+	//	}
+	//
+	//	public void set_curr_fruit(Pokemon curr_fruit) {
+	//		this._curr_fruit = curr_fruit;
+	//	}
+	//
+	//	public long get_sg_dt() {
+	//		return _sg_dt;
+	//	}
+	//
+	//	public void set_sg_dt(long _sg_dt) {
+	//		this._sg_dt = _sg_dt;
+	//	}
+	//
 
 	public int getNextNode() {
 		int ans = -2;
-		if (this._curr_edge == null) {
+		if (this.currentE == null) {
 			ans = -1;
 		} else {
-			ans = this._curr_edge.getDest();
+			ans = this.currentE.getDest();
 		}
 		return ans;
 	}
 
-	public void set_SDT(long ddtt) {
-		long ddt = ddtt;
-		if (this._curr_edge != null) {
-			double w = get_curr_edge().getWeight();
-			GeoLocation dest = _gg.getNode(get_curr_edge().getDest()).getLocation();
-			GeoLocation src = _gg.getNode(get_curr_edge().getSrc()).getLocation();
-			double de = src.distance(dest);
-			double dist = _pos.distance(dest);
-			if (this.get_curr_fruit().getedge() == this.get_curr_edge()) {
-				dist = _curr_fruit.getLocation().distance(this._pos);
-			}
-			double norm = dist / de;
-			double dt = w * norm / this.getSpeed();
-			ddt = (long) (1000.0 * dt);
-		}
-		this.set_sg_dt(ddt);
-	}
+//	public void set_SDT(long ddtt) {
+//		long ddt = ddtt;
+//		if (this.currentE != null) {
+//			double w = getCurrentE().getWeight();
+//			GeoLocation dest = _gg.getNode(getCurrentE().getDest()).getLocation();
+//			GeoLocation src = _gg.getNode(getCurrentE().getSrc()).getLocation();
+//			double de = src.distance(dest);
+//			double dist = pos.distance(dest);
+//			if (this.get_curr_fruit().getedge() == this.getCurrentE()) {
+//				dist = _curr_fruit.getLocation().distance(this.pos);
+//			}
+//			double norm = dist / de;
+//			double dt = w * norm / this.getSpeed();
+//			ddt = (long) (1000.0 * dt);
+//		}
+//		this.set_sg_dt(ddt);
+//	}
 }
